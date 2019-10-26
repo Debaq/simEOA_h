@@ -1,44 +1,51 @@
+
+
 import pygame
 from pygame.locals import *
 import lib
 
 
-def main():
-    # Initialise screen
-    pygame.init()
-    screen = pygame.display.set_mode((150, 150))
-    pygame.display.set_caption('Basic Pygame program')
+# ---------------------------------------------------------------------
 
-    # Fill background
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
-    background.fill((250, 250, 250))
+class gui():
+    
+    def __init__(self):
+        self.main()
 
-    # Display some text
-    font = pygame.font.Font(None, 36)
-    text = font.render("Hello There", 1, (10, 10, 10))
-    textpos = text.get_rect()
-    textpos.centerx = background.get_rect().centerx
-    background.blit(text, textpos)
-
-    # Blit everything to the screen
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
-
-
-    d = lib.cargar_img(dir='img')
-
-
-    # Event loop
-    while 1:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                return
-
-        screen.blit(background, (0, 0))
-        screen.blit(d['lbl_3000hz'],(0,0))
+    def main(self):
+        pygame.mouse.set_visible(0)
+        size=width, height = 240,320
+        self.screen = pygame.display.set_mode(size)
+        pygame.display.set_caption("EOA-PEATC-Z")
 
         pygame.display.flip()
 
+        img = lib.cargar_img(dir='img') #se cargan todas las imagenes
+        pbar = ['pbar_13','pbar_23','pbar_50','pbar_65','pbar_80','pbar_100']
+        a = lib.animate(pbar)
+        fin = False
 
-if __name__ == '__main__': main()
+        # Loop de pygame
+        while 1:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    return
+            if fin == False:
+                a.animated(tick=1000)
+                fin = a.stop
+                name = a.name
+                self.screen.blit(img[name],(0,0))
+                pygame.display.flip()
+
+
+ 
+
+if __name__ == '__main__':
+    pygame.init()
+    gui()
+
+
+
+
+
+
