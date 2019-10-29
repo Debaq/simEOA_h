@@ -8,7 +8,7 @@ import time
 
 def resultados(OD='EMPTY', OI='EMPTY'):
 
-    lista=['EMPTY','OK','BAD', 'NOISE']
+    lista=['EMPTY','OK','BAD', 'NOISE', 'A','B','C','PLUS','MINUS']
 
     if OD and OI in lista:
 
@@ -38,7 +38,7 @@ def resultados(OD='EMPTY', OI='EMPTY'):
         OI_c=code(OI)
     
         check = ['check_empty','check_ok','check_error','check_dude','check_a','check_b','check_c','check_plus','check_minus']
-        lbl = ['lbl_nodata','lbl_pasa','lbl_refiere','lbl_ruidoso','lbl_TIMP_data','lbl_TIMP_data','lbl_TIMP_data','lbl_TIMP_data']
+        lbl = ['lbl_nodata','lbl_pasa','lbl_refiere','lbl_ruidoso','lbl_TIMP_data','lbl_TIMP_data','lbl_TIMP_data','lbl_TIMP_data','lbl_TIMP_data']
         
         OD = [check[OD_c],lbl[OD_c]]
         OI = [check[OI_c],lbl[OI_c]]
@@ -89,7 +89,7 @@ class animate():
         return current_time
 
     def iterar(self):
-        self.cursor = self.cursor + 1
+        self.cursor +=1
         self.animar(self.cursor)
 
     def animar(self,n):
@@ -135,7 +135,9 @@ class change_state():
         return self.lista
 
     def next_row(self):
-        full=(len(self.lista[0])-1)
+        full=len(self.lista[0])
+        if full > 1:
+            full -=1
         if self.lista[1][0] >= 0:
             self.lista[1][0] += 1
         if self.lista[1][0] >full:
@@ -144,11 +146,13 @@ class change_state():
         self.cursor_row=self.lista[0][index]
 
     def prev_row(self):
-        full=(len(self.lista[0])-1)
+        full=len(self.lista[0])
+        if full > 1:
+            full -=1
+        if self.lista[1][0] <= full:
+            self.lista[1][0] -= 1
         if self.lista[1][0] < 0:
             self.lista[1][0] = full
-        if self.lista[1][0] <=full:
-            self.lista[1][0] -= 1
         index = self.lista[1][0]
         self.cursor_row=self.lista[0][index]
 
@@ -162,9 +166,9 @@ class change_state():
         self.cursor_col=self.cursor_row[0][index]
     def prev_col(self):
         full=(len(self.cursor_row[0])-1)
+        if self.cursor_row[1][0] <= full:
+            self.cursor_row[1][0] -= 1
         if self.cursor_row[1][0] < 0:
             self.cursor_row[1][0] = full
-        if self.cursor_row[1][0] <=full:
-            self.cursor_row[1][0] -= 1
         index = self.cursor_row[1][0]
         self.cursor_col=self.cursor_row[0][index]
