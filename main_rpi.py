@@ -114,7 +114,6 @@ class portatil():
                 if event.type == QUIT:
                    return
                 if event.type == pygame.KEYDOWN:
-                    no_entry = [0,3,6]
                     if self.test[0] == False:
                         if event.key == pygame.K_UP:
                             self.pos_cursor.prev_row()
@@ -125,6 +124,7 @@ class portatil():
                         if event.key == pygame.K_LEFT:
                             self.pos_cursor.prev_col()
                         if event.key == pygame.K_RETURN:
+                            no_entry = [0,3,6]
                             if self.pos_cursor.now()[1][0] not in no_entry:
                                 self.test[0] = True
                             print(self.pos_cursor.now())

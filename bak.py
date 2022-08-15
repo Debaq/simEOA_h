@@ -54,7 +54,7 @@ class gui():
 
         background_image.append(load_image('img/background1.png'))
         background_image.append(load_image('img/background2.png'))
-       
+
         self.principal()
 
         while True:
@@ -68,31 +68,26 @@ class gui():
                         print(state[0])
                     if eventos.key == pygame.K_DOWN:
                         state[0]=i[0]+1
-                        if state[0]>6:
-                            state[0]=6
+                        state[0] = min(state[0], 6)
                         print(state[0])
 
                     if eventos.key == pygame.K_LEFT:
                         if state[0]==1:
                             state[1]=i[1]-1
-                            if state[1]<0:
-                                state[1]=0
+                            state[1] = max(state[1], 0)
                             print(state[1])
                         if state[0]==4:
                             state[2]=i[2]-1
-                            if state[2]<0:
-                                state[2]=0
+                            state[2] = max(state[2], 0)
                             print(state[2])
                     if eventos.key == pygame.K_RIGHT:
                         if state[0]==1:
                             state[1]=i[1]+1
-                            if state[1]>1:
-                                state[1]=1
+                            state[1] = min(state[1], 1)
                             print(state[1])
                         if state[0]==4:
                             state[2]=i[2]+1
-                            if state[2]>1:
-                                state[2]=1
+                            state[2] = min(state[2], 1)
                             print(state[2])
                     if eventos.key == pygame.K_RETURN:
                         if state[1]==0:
@@ -109,7 +104,7 @@ class gui():
                             self.test("PEATC", "od")
                         if state[0]==6:
                             self.test("PEATC", "oI")
-    
+
                     if state[1]==0:
                         if state[0]==1:
                                 self.principal(2)
@@ -122,7 +117,7 @@ class gui():
                         if state[0]==5:
                                 self.principal(6)
                         if state[0]==6:
-                                self.principal(7)  
+                                self.principal(7)
                     if state[1]==1:
                         if state[0]==1:
                                 self.principal(1,1)
@@ -139,7 +134,7 @@ class gui():
 
                 if eventos.type == QUIT:
                     sys.exit(0)
-               
+
             pygame.display.flip()
         return 0
 

@@ -63,10 +63,10 @@ def cargar_img(dir='.', ext='png'):
     lista = {}
 
     for file in os.listdir('img'):
-        if fnmatch.fnmatch(file, '*.'+ext):
+        if fnmatch.fnmatch(file, f'*.{ext}'):
             name = file.split('.')
-            lista[name[0]]=load_image(dir+'/'+file)
-       
+            lista[name[0]] = load_image(f'{dir}/{file}')
+
     return lista
 
 class animate():
@@ -85,8 +85,7 @@ class animate():
         self.last_time=last_time
 
     def clock(self):
-        current_time = pygame.time.get_ticks()
-        return current_time
+        return pygame.time.get_ticks()
 
     def iterar(self):
         self.cursor +=1
@@ -98,10 +97,7 @@ class animate():
             self.stop = True
 
     def animated(self, tick):
-        if self.last_time == 0:
-            last_time=self.init_time
-        else:
-            last_time = self.last_time
+        last_time = self.init_time if self.last_time == 0 else self.last_time
         time=self.ticks
         current_time = self.clock()
 
@@ -114,12 +110,12 @@ class animate():
 
 class change_state():
     def __init__(self, quantity=2, matrix=0):
-        if isinstance(matrix, list) == False:
+        if not isinstance(matrix, list):
             self.quantity = quantity
             self.lista = range(self.quantity) 
             self.lista=list(self.lista)
 
-        if isinstance(matrix, list) == True:
+        if isinstance(matrix, list):
             self.lista=[[],[0]]
             for i in matrix:
                 self.lista[0].append([i,[0]])
